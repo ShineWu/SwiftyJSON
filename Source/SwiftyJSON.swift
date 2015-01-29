@@ -48,7 +48,7 @@ public enum Type :Int{
     case Array
     case Dictionary
     case Null
-    case Unknow
+    case Unknown
 }
 
 // MARK: - JSON Base
@@ -113,7 +113,7 @@ public struct JSON {
             case let dictionary as [String : AnyObject]:
                 _type = .Dictionary
             default:
-                _type = .Unknow
+                _type = .Unknown
                 _object = NSNull()
                 _error = NSError(domain: ErrorDomain, code: ErrorUnsupportedType, userInfo: [NSLocalizedDescriptionKey: "It is a unsupported type"])
             }
@@ -135,7 +135,7 @@ public struct JSON {
 extension JSON: SequenceType{
     
     /// If `type` is `.Array` or `.Dictionary`, return `array.empty` or `dictonary.empty` otherwise return `false`.
-    var isEmpty: Bool {
+    public var isEmpty: Bool {
         get {
             switch self.type {
             case .Array:
@@ -163,7 +163,7 @@ extension JSON: SequenceType{
     }
     
     /**
-    If `type` is `.Array` or `.Dictionary`, return a generator over the elements like `Array` or `Dictionary, otherwise return a generator over empty.
+    If `type` is `.Array` or `.Dictionary`, return a generator over the elements like `Array` or `Dictionary`, otherwise return a generator over empty.
     
     :returns: Return a *generator* over the elements of this *sequence*.
     */
@@ -421,7 +421,7 @@ extension JSON: NilLiteralConvertible {
 extension JSON: RawRepresentable {
 	
 	public init?(rawValue: AnyObject) {
-		if JSON(rawValue).type == .Unknow {
+		if JSON(rawValue).type == .Unknown {
 			return nil
 		} else {
 			self.init(rawValue)
@@ -1161,7 +1161,7 @@ public func ==(lhs: NSNumber, rhs: NSNumber) -> Bool {
 }
 
 public func !=(lhs: NSNumber, rhs: NSNumber) -> Bool {
-    return !(rhs == rhs)
+    return !(lhs == rhs)
 }
 
 public func <(lhs: NSNumber, rhs: NSNumber) -> Bool {
